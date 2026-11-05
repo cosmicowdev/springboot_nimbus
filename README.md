@@ -107,7 +107,7 @@ The service starts on `http://localhost:8080`.
 
 ## Configuration
 
-Externalized via `application.yml` / `application-{profile}.yml`. Secrets are injected through environment variables — never committed.
+Externalized via `application.yml` / `application-{profile}.yml`. Secrets are injected through environment variables, never committed.
 
 | Property                          | Description                          |
 |-----------------------------------|--------------------------------------|
