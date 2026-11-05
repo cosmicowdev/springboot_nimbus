@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: nimbus-iam
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/nimbus_iam}
+    username: ${SPRING_DATASOURCE_USERNAME:nimbus}
+    password: ${SPRING_DATASOURCE_PASSWORD:nimbus}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc.time_zone: UTC
+        format_sql: false
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+nimbus:
+  security:
+    jwt:
+      secret: ${NIMBUS_JWT_SECRET:Y2hhbmdlLW1lLWEtdmVyeS1sb25nLXNlY3JldC1rZXktZm9yLWRldi1vbmx5LWRvLW5vdC1yZXVzZQ==}
+      access-ttl-minutes: 15
+      refresh-ttl-days: 7
+      issuer: nimbus-iam
+    cors:
+      allowed-origins:
+        - http://localhost:3000
+      allowed-methods: GET,POST,PATCH,PUT,DELETE,OPTIONS
+      allowed-headers: "*"
+      allow-credentials: true
+      max-age: 3600
+    password:
+      bcrypt-strength: 12
